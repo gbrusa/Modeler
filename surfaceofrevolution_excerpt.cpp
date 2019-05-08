@@ -116,21 +116,21 @@ std::vector<unsigned int> CreateTrianglesBand(unsigned int num_curve_points, uns
 }
 
 std::vector<float> CreateUVBand(std::vector<float> curr_band, float division_percentage, float tot_height) {
-    std::vector<float> ans;
+    std::vector<float> uv_band;
     float curr_height = tot_height;
     glm::vec3 prev_point = get_position(curr_band.size() / 3 - 1, curr_band);
-    ans.push_back(division_percentage);
-    ans.push_back(1.0f);
+    uv_band.push_back(division_percentage);
+    uv_band.push_back(1.0f);
     for (size_t i = curr_band.size()/3 - 2; i+1 > 0; i--) {
         glm::vec3 curr_point = get_position(i, curr_band);
         curr_height -= get_distance(curr_point, prev_point);
 
-        ans.push_back(division_percentage);  // u
-        ans.push_back(curr_height / tot_height);  // v
+        uv_band.push_back(division_percentage);  // u
+        uv_band.push_back(curr_height / tot_height);  // v
 
         prev_point = curr_point;
     }
-    return ans;
+    return uv_band;
 }
 
 glm::vec3 get_position(unsigned int i, std::vector<float> positions) {
